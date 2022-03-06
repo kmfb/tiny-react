@@ -2,7 +2,8 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const config = {
-  entry: path.resolve(__dirname, "src", "index.ts"),
+  context: path.join(__dirname, "src"),
+  entry: path.resolve(__dirname, "src", "index.tsx"),
   mode: "development",
   output: {
     filename: "bundle.js",
@@ -17,13 +18,21 @@ const config = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-typescript"],
+            presets: [
+              "@babel/preset-env",
+              "@babel/preset-typescript",
+              "@babel/preset-react",
+            ],
           },
         },
       },
     ],
   },
   plugins: [new HtmlWebpackPlugin()],
+  resolve: {
+    extensions: [".js", ".ts", ".html", ".scss"],
+    modules: ["node_modules"],
+  },
 };
 
 module.exports = config;
